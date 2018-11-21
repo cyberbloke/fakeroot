@@ -62,6 +62,11 @@
 # endif
 #endif
 
+// XXX: musl libc detection is pain in ass
+#if (defined(__linux__) && !defined(__GLIBC__) && !defined(__UCLIBC__) && !defined(__dietlibc__))
+# define IS_MUSL
+#endif
+
 /* Then decide whether we do or do not use the stat64 support */
 #if defined HAVE_APPLE_STAT64 \
 	|| (defined(sun) && !defined(__SunOS_5_5_1) && !defined(_LP64)) \
@@ -69,7 +74,7 @@
 	|| (defined __UCLIBC__ && defined __UCLIBC_HAS_LFS__)
 # define STAT64_SUPPORT
 #else
-# ifndef __APPLE__
+# if !(defined(__APPLE__) || defined(IS_MUSL))
 #  warning Not using stat64 support
 # endif
 /* if glibc is 2.0 or older, undefine these again */
