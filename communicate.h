@@ -91,6 +91,12 @@
 # include <inttypes.h>
 #endif
 
+
+/* musl libc does not define _STAT_VER */
+#ifndef _STAT_VER
+# define _STAT_VER 0
+#endif
+
 #ifndef FAKEROOT_FAKENET
 # define FAKEROOTKEY_ENV          "FAKEROOTKEY"
 #endif /* ! FAKEROOT_FAKENET */
