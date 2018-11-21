@@ -256,10 +256,12 @@ void load_library_symbols(void){
  /* clear dlerror() just in case dlsym() legitimately returns NULL */
     msg = dlerror();
     *(next_wrap[i].doit)=dlsym(get_libc(), next_wrap[i].name);
-    if ( (msg = dlerror()) != NULL){
+#ifdef LIBFAKEROOT_DEBUGGING
+    if (fakeroot_debug && (msg = dlerror()) != NULL){
       fprintf (stderr, "dlsym(%s): %s\n", next_wrap[i].name, msg);
 /*    abort ();*/
     }
+#endif
   }
 }
 
