@@ -303,7 +303,7 @@ for SEARCH in %stat f%stat l%stat f%statat %stat64 f%stat64 l%stat64 f%statat64 
   FUNC=`echo $SEARCH|sed -e 's/.*%//'`
   PRE=`echo $SEARCH|sed -e 's/%.*//'`
   FOUND=
-  for WRAPPED in __${PRE}x${FUNC} _${PRE}x${FUNC} __${PRE}${FUNC}13 ${PRE}${FUNC}; do
+  for WRAPPED in ${PRE}${FUNC}; do
     AC_CHECK_FUNCS($WRAPPED,FOUND=$WRAPPED)
 dnl
 dnl to unconditionally define only the _* functions, comment out the 2 lines above,
